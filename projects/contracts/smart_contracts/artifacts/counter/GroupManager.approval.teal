@@ -1,0 +1,133 @@
+#pragma version 10
+#pragma typetrack false
+
+// smart_contracts.counter.contract.GroupManager.__algopy_entrypoint_with_init() -> uint64:
+main:
+    intcblock 1 0
+    bytecblock "debt_per_member"
+    // smart_contracts/counter/contract.py:3
+    // class GroupManager(ARC4Contract):
+    txn NumAppArgs
+    bz main_bare_routing@8
+    pushbytess 0x6c081010 0x81b88ed9 0xaca063ce // method "join_group()void", method "assign_split(account,uint64)void", method "settle_payment(pay)void"
+    txna ApplicationArgs 0
+    match main_join_group_route@5 main_assign_split_route@6 main_settle_payment_route@7
+
+main_after_if_else@10:
+    // smart_contracts/counter/contract.py:3
+    // class GroupManager(ARC4Contract):
+    intc_1 // 0
+    return
+
+main_settle_payment_route@7:
+    // smart_contracts/counter/contract.py:19
+    // @arc4.abimethod
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    // smart_contracts/counter/contract.py:3
+    // class GroupManager(ARC4Contract):
+    txn GroupIndex
+    intc_0 // 1
+    -
+    dup
+    gtxns TypeEnum
+    intc_0 // pay
+    ==
+    assert // transaction type is pay
+    // smart_contracts/counter/contract.py:19
+    // @arc4.abimethod
+    callsub settle_payment
+    intc_0 // 1
+    return
+
+main_assign_split_route@6:
+    // smart_contracts/counter/contract.py:13
+    // @arc4.abimethod
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    // smart_contracts/counter/contract.py:3
+    // class GroupManager(ARC4Contract):
+    txna ApplicationArgs 1
+    btoi
+    txnas Accounts
+    txna ApplicationArgs 2
+    btoi
+    // smart_contracts/counter/contract.py:13
+    // @arc4.abimethod
+    callsub assign_split
+    intc_0 // 1
+    return
+
+main_join_group_route@5:
+    // smart_contracts/counter/contract.py:8
+    // @arc4.abimethod
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    intc_0 // 1
+    return
+
+main_bare_routing@8:
+    // smart_contracts/counter/contract.py:3
+    // class GroupManager(ARC4Contract):
+    txn OnCompletion
+    bnz main_after_if_else@10
+    txn ApplicationID
+    !
+    assert // can only call when creating
+    intc_0 // 1
+    return
+
+
+// smart_contracts.counter.contract.GroupManager.assign_split(member: bytes, amount: uint64) -> void:
+assign_split:
+    // smart_contracts/counter/contract.py:13-14
+    // @arc4.abimethod
+    // def assign_split(self, member: Account, amount: UInt64) -> None:
+    proto 2 0
+    // smart_contracts/counter/contract.py:15-17
+    // # Only the leader can call this to set who owes what
+    // # In a hackathon, just assume the sender is the leader for now
+    // self.debt_per_member[member] = amount
+    frame_dig -2
+    bytec_0 // "debt_per_member"
+    frame_dig -1
+    app_local_put
+    retsub
+
+
+// smart_contracts.counter.contract.GroupManager.settle_payment(payment: uint64) -> void:
+settle_payment:
+    // smart_contracts/counter/contract.py:19-20
+    // @arc4.abimethod
+    // def settle_payment(self, payment: gtxn.PaymentTransaction) -> None:
+    proto 1 0
+    // smart_contracts/counter/contract.py:21-22
+    // # Ensure payment goes to leader, then set debt to 0
+    // assert payment.amount >= self.debt_per_member[payment.sender]
+    frame_dig -1
+    gtxns Amount
+    frame_dig -1
+    gtxns Sender
+    dup
+    intc_1 // 0
+    bytec_0 // "debt_per_member"
+    app_local_get_ex
+    assert // check self.debt_per_member exists for account
+    uncover 2
+    <=
+    assert
+    // smart_contracts/counter/contract.py:23
+    // self.debt_per_member[payment.sender] = UInt64(0)
+    bytec_0 // "debt_per_member"
+    intc_1 // 0
+    app_local_put
+    retsub

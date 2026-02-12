@@ -1,0 +1,646 @@
+{
+  "version": 3,
+  "sources": [
+    "../../group_expense/contract.py"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;AAAA;;;AAAA;;;;;;;;;;;;AAAA;;;AAAA;;;;;;AAAA;;AAkBK;;AAAA;AAAA;AAAA;;AAAA;AAlBL;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAkBK;;;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AAAA;;AALA;;AAAA;AAAA;AAAA;;;AAAA;;AAbL;;AAAA;;;AAOK;;;AAAA;;AAEG;AAAoB;;AAApB;AACA;AAA0B;AAA1B;;AAKA;AAAoB;;AAApB;AACA;AAA0B;AAA1B;;AAER;;;AAEe;;AAAA;;AAAoB;AAAA;AAAA;AAAA;AAApB;AAAP;AACA;AAAA;AAAA;AAAA;AAA2B;;AAAA;;AAA3B;AAAA;AAAA;AAAA;AACO;AAAA;AAAA;AAAA;AAAP",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "smart_contracts.group_expense.contract.GroupExpense.__algopy_entrypoint_with_init",
+      "params": {},
+      "block": "main",
+      "stack_in": [],
+      "op": "intcblock 0 1"
+    },
+    "5": {
+      "op": "bytecblock \"total_amount\" \"leader\""
+    },
+    "27": {
+      "op": "txn NumAppArgs",
+      "defined_out": [
+        "tmp%0#2"
+      ],
+      "stack_out": [
+        "tmp%0#2"
+      ]
+    },
+    "29": {
+      "op": "bz main_bare_routing@7",
+      "stack_out": []
+    },
+    "32": {
+      "op": "pushbytess 0x49ee2f10 0xf6047da7 // method \"create_abi()void\", method \"pay_share(pay)uint64\"",
+      "defined_out": [
+        "Method(create_abi()void)",
+        "Method(pay_share(pay)uint64)"
+      ],
+      "stack_out": [
+        "Method(create_abi()void)",
+        "Method(pay_share(pay)uint64)"
+      ]
+    },
+    "44": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(create_abi()void)",
+        "Method(pay_share(pay)uint64)",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "Method(create_abi()void)",
+        "Method(pay_share(pay)uint64)",
+        "tmp%2#0"
+      ]
+    },
+    "47": {
+      "op": "match main_create_abi_route@5 main_pay_share_route@6",
+      "stack_out": []
+    },
+    "53": {
+      "block": "main_after_if_else@9",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "54": {
+      "op": "return",
+      "stack_out": []
+    },
+    "55": {
+      "block": "main_pay_share_route@6",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0"
+      ]
+    },
+    "57": {
+      "op": "!",
+      "defined_out": [
+        "tmp%6#0"
+      ],
+      "stack_out": [
+        "tmp%6#0"
+      ]
+    },
+    "58": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "59": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%7#0"
+      ],
+      "stack_out": [
+        "tmp%7#0"
+      ]
+    },
+    "61": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "62": {
+      "op": "txn GroupIndex",
+      "defined_out": [
+        "tmp%9#0"
+      ],
+      "stack_out": [
+        "tmp%9#0"
+      ]
+    },
+    "64": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "tmp%9#0"
+      ],
+      "stack_out": [
+        "tmp%9#0",
+        "1"
+      ]
+    },
+    "65": {
+      "op": "-",
+      "defined_out": [
+        "gtxn_idx%0#0"
+      ],
+      "stack_out": [
+        "gtxn_idx%0#0"
+      ]
+    },
+    "66": {
+      "op": "dup",
+      "defined_out": [
+        "gtxn_idx%0#0",
+        "gtxn_idx%0#0 (copy)"
+      ],
+      "stack_out": [
+        "gtxn_idx%0#0",
+        "gtxn_idx%0#0 (copy)"
+      ]
+    },
+    "67": {
+      "op": "gtxns TypeEnum",
+      "defined_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type%0#0"
+      ],
+      "stack_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type%0#0"
+      ]
+    },
+    "69": {
+      "op": "intc_1 // pay",
+      "defined_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type%0#0",
+        "pay"
+      ],
+      "stack_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type%0#0",
+        "pay"
+      ]
+    },
+    "70": {
+      "op": "==",
+      "defined_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type_matches%0#0"
+      ],
+      "stack_out": [
+        "gtxn_idx%0#0",
+        "gtxn_type_matches%0#0"
+      ]
+    },
+    "71": {
+      "error": "transaction type is pay",
+      "op": "assert // transaction type is pay",
+      "stack_out": [
+        "gtxn_idx%0#0"
+      ]
+    },
+    "72": {
+      "callsub": "smart_contracts.group_expense.contract.GroupExpense.pay_share",
+      "op": "callsub pay_share",
+      "defined_out": [
+        "to_encode%0#0"
+      ],
+      "stack_out": [
+        "to_encode%0#0"
+      ]
+    },
+    "75": {
+      "op": "itob",
+      "defined_out": [
+        "val_as_bytes%0#0"
+      ],
+      "stack_out": [
+        "val_as_bytes%0#0"
+      ]
+    },
+    "76": {
+      "op": "pushbytes 0x151f7c75",
+      "defined_out": [
+        "0x151f7c75",
+        "val_as_bytes%0#0"
+      ],
+      "stack_out": [
+        "val_as_bytes%0#0",
+        "0x151f7c75"
+      ]
+    },
+    "82": {
+      "op": "swap",
+      "stack_out": [
+        "0x151f7c75",
+        "val_as_bytes%0#0"
+      ]
+    },
+    "83": {
+      "op": "concat",
+      "defined_out": [
+        "tmp%10#0"
+      ],
+      "stack_out": [
+        "tmp%10#0"
+      ]
+    },
+    "84": {
+      "op": "log",
+      "stack_out": []
+    },
+    "85": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "86": {
+      "op": "return",
+      "stack_out": []
+    },
+    "87": {
+      "block": "main_create_abi_route@5",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "89": {
+      "op": "!",
+      "defined_out": [
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "tmp%4#0"
+      ]
+    },
+    "90": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "91": {
+      "callsub": "smart_contracts.group_expense.contract.GroupExpense.create_abi",
+      "op": "callsub create_abi"
+    },
+    "94": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "95": {
+      "op": "return",
+      "stack_out": []
+    },
+    "96": {
+      "block": "main_bare_routing@7",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%11#0"
+      ],
+      "stack_out": [
+        "tmp%11#0"
+      ]
+    },
+    "98": {
+      "op": "bnz main_after_if_else@9",
+      "stack_out": []
+    },
+    "101": {
+      "callsub": "smart_contracts.group_expense.contract.GroupExpense.create",
+      "op": "callsub create"
+    },
+    "104": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "tmp%0#1"
+      ]
+    },
+    "105": {
+      "op": "return",
+      "stack_out": []
+    },
+    "106": {
+      "subroutine": "smart_contracts.group_expense.contract.GroupExpense.create",
+      "params": {},
+      "block": "create",
+      "stack_in": [],
+      "op": "bytec_1 // \"leader\"",
+      "defined_out": [
+        "\"leader\""
+      ],
+      "stack_out": [
+        "\"leader\""
+      ]
+    },
+    "107": {
+      "op": "txn Sender",
+      "defined_out": [
+        "\"leader\"",
+        "new_state_value%0#0"
+      ],
+      "stack_out": [
+        "\"leader\"",
+        "new_state_value%0#0"
+      ]
+    },
+    "109": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "110": {
+      "op": "bytec_0 // \"total_amount\"",
+      "defined_out": [
+        "\"total_amount\""
+      ],
+      "stack_out": [
+        "\"total_amount\""
+      ]
+    },
+    "111": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "\"total_amount\"",
+        "0"
+      ],
+      "stack_out": [
+        "\"total_amount\"",
+        "0"
+      ]
+    },
+    "112": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "113": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "114": {
+      "subroutine": "smart_contracts.group_expense.contract.GroupExpense.create_abi",
+      "params": {},
+      "block": "create_abi",
+      "stack_in": [],
+      "op": "bytec_1 // \"leader\"",
+      "defined_out": [
+        "\"leader\""
+      ],
+      "stack_out": [
+        "\"leader\""
+      ]
+    },
+    "115": {
+      "op": "txn Sender",
+      "defined_out": [
+        "\"leader\"",
+        "new_state_value%0#0"
+      ],
+      "stack_out": [
+        "\"leader\"",
+        "new_state_value%0#0"
+      ]
+    },
+    "117": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "118": {
+      "op": "bytec_0 // \"total_amount\"",
+      "defined_out": [
+        "\"total_amount\""
+      ],
+      "stack_out": [
+        "\"total_amount\""
+      ]
+    },
+    "119": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "\"total_amount\"",
+        "0"
+      ],
+      "stack_out": [
+        "\"total_amount\"",
+        "0"
+      ]
+    },
+    "120": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "121": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "122": {
+      "subroutine": "smart_contracts.group_expense.contract.GroupExpense.pay_share",
+      "params": {
+        "payment#0": "uint64"
+      },
+      "block": "pay_share",
+      "stack_in": [],
+      "op": "proto 1 1"
+    },
+    "125": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "payment#0 (copy)"
+      ],
+      "stack_out": [
+        "payment#0 (copy)"
+      ]
+    },
+    "127": {
+      "op": "gtxns Receiver",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "129": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "130": {
+      "op": "bytec_1 // \"leader\"",
+      "defined_out": [
+        "\"leader\"",
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "\"leader\""
+      ]
+    },
+    "131": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "132": {
+      "error": "check self.leader exists",
+      "op": "assert // check self.leader exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "133": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "134": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "135": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "136": {
+      "op": "bytec_0 // \"total_amount\"",
+      "defined_out": [
+        "\"total_amount\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"total_amount\""
+      ]
+    },
+    "137": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "138": {
+      "error": "check self.total_amount exists",
+      "op": "assert // check self.total_amount exists",
+      "stack_out": [
+        "maybe_value%1#0"
+      ]
+    },
+    "139": {
+      "op": "frame_dig -1",
+      "stack_out": [
+        "maybe_value%1#0",
+        "payment#0 (copy)"
+      ]
+    },
+    "141": {
+      "op": "gtxns Amount",
+      "defined_out": [
+        "maybe_value%1#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%1#0",
+        "tmp%2#0"
+      ]
+    },
+    "143": {
+      "op": "+",
+      "defined_out": [
+        "new_state_value%0#0"
+      ],
+      "stack_out": [
+        "new_state_value%0#0"
+      ]
+    },
+    "144": {
+      "op": "bytec_0 // \"total_amount\"",
+      "stack_out": [
+        "new_state_value%0#0",
+        "\"total_amount\""
+      ]
+    },
+    "145": {
+      "op": "swap",
+      "stack_out": [
+        "\"total_amount\"",
+        "new_state_value%0#0"
+      ]
+    },
+    "146": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "147": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "148": {
+      "op": "bytec_0 // \"total_amount\"",
+      "stack_out": [
+        "0",
+        "\"total_amount\""
+      ]
+    },
+    "149": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "150": {
+      "error": "check self.total_amount exists",
+      "op": "assert // check self.total_amount exists",
+      "stack_out": [
+        "maybe_value%2#0"
+      ]
+    },
+    "151": {
+      "retsub": true,
+      "op": "retsub"
+    }
+  }
+}

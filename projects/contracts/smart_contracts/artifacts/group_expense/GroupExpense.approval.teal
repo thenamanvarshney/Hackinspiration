@@ -1,0 +1,140 @@
+#pragma version 10
+#pragma typetrack false
+
+// smart_contracts.group_expense.contract.GroupExpense.__algopy_entrypoint_with_init() -> uint64:
+main:
+    intcblock 0 1
+    bytecblock "total_amount" "leader"
+    // smart_contracts/group_expense/contract.py:3
+    // class GroupExpense(ARC4Contract):
+    txn NumAppArgs
+    bz main_bare_routing@7
+    pushbytess 0x49ee2f10 0xf6047da7 // method "create_abi()void", method "pay_share(pay)uint64"
+    txna ApplicationArgs 0
+    match main_create_abi_route@5 main_pay_share_route@6
+
+main_after_if_else@9:
+    // smart_contracts/group_expense/contract.py:3
+    // class GroupExpense(ARC4Contract):
+    intc_0 // 0
+    return
+
+main_pay_share_route@6:
+    // smart_contracts/group_expense/contract.py:21
+    // @arc4.abimethod
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    // smart_contracts/group_expense/contract.py:3
+    // class GroupExpense(ARC4Contract):
+    txn GroupIndex
+    intc_1 // 1
+    -
+    dup
+    gtxns TypeEnum
+    intc_1 // pay
+    ==
+    assert // transaction type is pay
+    // smart_contracts/group_expense/contract.py:21
+    // @arc4.abimethod
+    callsub pay_share
+    itob
+    pushbytes 0x151f7c75
+    swap
+    concat
+    log
+    intc_1 // 1
+    return
+
+main_create_abi_route@5:
+    // smart_contracts/group_expense/contract.py:15-16
+    // # Also allow ABI creation if needed, just in case
+    // @arc4.abimethod(create="allow")
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    callsub create_abi
+    intc_1 // 1
+    return
+
+main_bare_routing@7:
+    // smart_contracts/group_expense/contract.py:3
+    // class GroupExpense(ARC4Contract):
+    txn OnCompletion
+    bnz main_after_if_else@9
+    // smart_contracts/group_expense/contract.py:8-10
+    // # --- THE FIX IS HERE ---
+    // # This allows the factory to deploy using a standard "Bare" transaction
+    // @arc4.baremethod(create="allow")
+    callsub create
+    intc_1 // 1
+    return
+
+
+// smart_contracts.group_expense.contract.GroupExpense.create() -> void:
+create:
+    // smart_contracts/group_expense/contract.py:12
+    // self.leader.value = Txn.sender
+    bytec_1 // "leader"
+    txn Sender
+    app_global_put
+    // smart_contracts/group_expense/contract.py:13
+    // self.total_amount.value = UInt64(0)
+    bytec_0 // "total_amount"
+    intc_0 // 0
+    app_global_put
+    retsub
+
+
+// smart_contracts.group_expense.contract.GroupExpense.create_abi() -> void:
+create_abi:
+    // smart_contracts/group_expense/contract.py:18
+    // self.leader.value = Txn.sender
+    bytec_1 // "leader"
+    txn Sender
+    app_global_put
+    // smart_contracts/group_expense/contract.py:19
+    // self.total_amount.value = UInt64(0)
+    bytec_0 // "total_amount"
+    intc_0 // 0
+    app_global_put
+    retsub
+
+
+// smart_contracts.group_expense.contract.GroupExpense.pay_share(payment: uint64) -> uint64:
+pay_share:
+    // smart_contracts/group_expense/contract.py:21-22
+    // @arc4.abimethod
+    // def pay_share(self, payment: gtxn.PaymentTransaction) -> UInt64:
+    proto 1 1
+    // smart_contracts/group_expense/contract.py:23
+    // assert payment.receiver == self.leader.value
+    frame_dig -1
+    gtxns Receiver
+    intc_0 // 0
+    bytec_1 // "leader"
+    app_global_get_ex
+    assert // check self.leader exists
+    ==
+    assert
+    // smart_contracts/group_expense/contract.py:24
+    // self.total_amount.value += payment.amount
+    intc_0 // 0
+    bytec_0 // "total_amount"
+    app_global_get_ex
+    assert // check self.total_amount exists
+    frame_dig -1
+    gtxns Amount
+    +
+    bytec_0 // "total_amount"
+    swap
+    app_global_put
+    // smart_contracts/group_expense/contract.py:25
+    // return self.total_amount.value
+    intc_0 // 0
+    bytec_0 // "total_amount"
+    app_global_get_ex
+    assert // check self.total_amount exists
+    retsub
